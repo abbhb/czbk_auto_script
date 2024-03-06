@@ -11,6 +11,9 @@ reload(sys)
 import requests
 
 session = requests.Session()
+print("Abbhb创建于2024/3/6 侵权联系删除！\n")
+print("https://gitee.com/abbhb/czbk_auto_script\n")
+print("https://gitee.com/abbhb/czbk_auto_script")
 print("\n")
 print("https://m.ityxb.com/account这个地址是官网登录页，可以打开尝试密码，确认了再来刷!!!\n")
 print("请注意，正常登录成功会输出studentId,请先去网站上确认好密码!!!\n")
