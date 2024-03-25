@@ -13,7 +13,7 @@ import requests
 session = requests.Session()
 print("Abbhb创建于2024/3/6 侵权联系删除！\n")
 print("https://gitee.com/abbhb/czbk_auto_script\n")
-print("https://gitee.com/abbhb/czbk_auto_script")
+print("https://github.com/abbhb/czbk_auto_script\n")
 print("\n")
 print("https://m.ityxb.com/account这个地址是官网登录页，可以打开尝试密码，确认了再来刷!!!\n")
 print("请注意，正常登录成功会输出studentId,请先去网站上确认好密码!!!\n")
@@ -180,11 +180,14 @@ for sd in yuxi_data:
     # 判断给定日期时间是否已经过去
     if date_time_obj >= current_time:
         if int(sd["progress100"])<100:
+
             Need_Shuake.append(sd)
 
 print(table)
 print("\n")
-input("按任意开始刷课，会自动刷结束时间内完成度没到100%的章节的视频部分！\n")
+print("回车后请等待即可，不要多次回车!!")
+input("输入任意值回车,会自动刷结束时间内完成度没到100%的章节的视频部分！\n")
+
 
 for shu in Need_Shuake:
     sdfa = {
@@ -199,21 +202,21 @@ for shu in Need_Shuake:
             # 解析 JSON 数据
             dataasasd = json.loads(response_info.text)
             if (dataasasd["success"] is True):
-                tempke = dataasasd["resultObject"]["chapters"][0]["points"]
-
-        for ke_item in tempke:
-            if int(ke_item["progress100"])>=100:
-                continue
-            gouzao = {
-                "previewId":shu["id"],
-                "pointId":ke_item["point_id"],
-                "watchedDuration":ke_item["video_duration"]
-            }
-            response_s = requests.post(ShuaSHichang, headers=headers, cookies=custom_cookie, data=gouzao)
-            if response_jechengs.status_code == 200:
-                # 打印响应内容
-                # 解析 JSON 数据
-                print(f"恭喜你，{shu['preview_name']}-{ke_item['point_name']} 刷满了!\n")
+                tempke = dataasasd["resultObject"]["chapters"]
+        for zhangjie in tempke:
+            for ke_item in zhangjie["points"]:
+                if int(ke_item["progress100"])>=100:
+                    continue
+                gouzao = {
+                    "previewId":shu["id"],
+                    "pointId":ke_item["point_id"],
+                    "watchedDuration":ke_item["video_duration"]
+                }
+                response_s = requests.post(ShuaSHichang, headers=headers, cookies=custom_cookie, data=gouzao)
+                if response_jechengs.status_code == 200:
+                    # 打印响应内容
+                    # 解析 JSON 数据
+                    print(f"恭喜你，{shu['preview_name']}-{ke_item['point_name']} 刷满了!\n")
 
     except Exception as e:
         print(e)
